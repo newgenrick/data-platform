@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="contact-summary-processor.main" target="1.8" />
+      <module name="contact-summary-processor.test" target="1.8" />
+      <module name="dal-search.main" target="1.8" />
+      <module name="dal-search.test" target="1.8" />
+      <module name="dataset-registration.main" target="1.8" />
+      <module name="dataset-registration.test" target="1.8" />
+      <module name="ingestion-services.main" target="1.8" />
+      <module name="ingestion-services.test" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
