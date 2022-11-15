@@ -6,6 +6,7 @@ pipeline {
     stage('Clean Workspace') {
       steps {
         println "calling projectsListForPR"
+        sh 'printenv'
       }
     }
   }
