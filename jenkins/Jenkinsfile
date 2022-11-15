@@ -7,8 +7,8 @@ pipeline {
       steps {
         println "calling projectsListForPR"
         sh 'printenv'
-        println 'branch : {ghprbSourceBranch}'
-        sh 'git checkout origin/{ghprbSourceBranch}'
+        println 'branch : ${ghprbSourceBranch}'
+        sh 'git checkout origin/${ghprbSourceBranch}'
         sh 'git --no-pager diff origin/main --name-only'
       }
     }
