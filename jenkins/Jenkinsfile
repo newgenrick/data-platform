@@ -43,6 +43,8 @@ pipeline {
              }else{
                 println("Preconditions passed")
              }
+
+             println(projectsChanged.toList()?.find({true}))
              println("invoking downstream build job : ")
         }
 
