@@ -7,16 +7,20 @@ pipeline {
       steps {
         println "calling projectsListForPR"
         sh 'printenv'
-        Set projectsChanged = []
+
         println 'branch : ${ghprbSourceBranch}'
         sh 'git checkout origin/${ghprbSourceBranch}'
         sh 'git --no-pager diff origin/main --name-only'
-        changeSets.each( { changedFile ->
-              def projectNames = changedFileToProjectNamesFn(changedFile)
-              if(projectNames){
-                   projectsChanged += projectNames
-              }
-         })
+        script{
+            Set projectsChanged = []
+            changeSets.each( { changedFile ->
+                  def projectNames = changedFileToProjectNamesFn(changedFile)
+                  if(projectNames){
+                       projectsChanged += projectNames
+                  }
+             })
+        }
+
 
         println("changeset: ${projectsChanged}")
       }
