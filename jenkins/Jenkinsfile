@@ -10,6 +10,7 @@ pipeline {
 
         println 'branch : ${ghprbSourceBranch}'
         sh 'git checkout origin/${ghprbSourceBranch}'
+        sh 'git pull origin main'
         sh 'git --no-pager diff origin/main --name-only'
 
         script{
