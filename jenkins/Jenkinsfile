@@ -11,6 +11,7 @@ pipeline {
         println 'branch : ${ghprbSourceBranch}'
         sh 'git checkout origin/${ghprbSourceBranch}'
         sh 'git --no-pager diff origin/main --name-only'
+        Set projectsChanged = []
         script{
             def changedFileToProjectNamesFn = { changedFile ->
                   def tokens = changedFile?.split('/')
@@ -23,11 +24,11 @@ pipeline {
                   script: "git --no-pager diff origin/main --name-only",
                      returnStdout: true
             ).split('\n')
-            //def projectsChanged = []
+
             changeSets.each( { changedFile ->
                   def projectNames = changedFileToProjectNamesFn(changedFile)
                   if(projectNames){
-                       println(projectNames)
+                       projectsChanged += projectNames
                   }
              })
         }
