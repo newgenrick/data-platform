@@ -52,7 +52,7 @@ pipeline {
                 jobName = "GroupABuilder"
              }else if(GroupBServices.contains(changedService)){
                 println("GroupBServices")
-                jobName = "GroupBServices"
+                jobName = "GroupBBuilder"
              }else{
                 error("ABORTING : UNKNOWN SERVICE BUCKET")
              }
