@@ -45,6 +45,14 @@ pipeline {
              }
 
              println(projectsChanged.toList()?.find({true}))
+             def changedService = projectsChanged.toList()?.find({true})
+             if(GroupAServices.contains(changedService)){
+                println("GroupAServices")
+             }else if(GroupBServices.contains(changedService)){
+                println("GroupBServices")
+             }else{
+                error("ABORTING : UNKNOWN SERVICE BUCKET")
+             }
              println("invoking downstream build job : ")
         }
 
