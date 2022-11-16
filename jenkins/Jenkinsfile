@@ -33,6 +33,16 @@ pipeline {
                   }
              })
              println("changeset: ${projectsChanged}")
+
+             Set GroupAServices = ["contact-summary-processor","agent-summary-processor"]
+             Set GroupBServices = ["ingestion-services","dal-search"]
+
+             if(projectsChanged.size!=1){
+                error("MORE THAN SERVICES ARE CHANGED IN THIS PR!! ABORTING")
+             }else{
+                println("Preconditions passed")
+             }
+             println("invoking downstream build job : ")
         }
 
 
