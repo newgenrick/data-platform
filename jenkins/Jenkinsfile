@@ -43,15 +43,6 @@ pipeline {
                 println("Preconditions passed")
              }
              println("invoking downstream build job : ")
-
-println(projectsChanged.toList()?.find)
-//              if(projectsChanged.toList()?.find){
-//
-//              }
-
-             stage ('Starting ART job') {
-                 build job: 'RunArtInTest', parameters: [[$class: 'StringParameterValue', name: 'systemname', value: systemname]]
-             }
         }
 
 
