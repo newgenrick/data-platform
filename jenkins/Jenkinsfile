@@ -15,18 +15,14 @@ pipeline {
         sh 'touch ${ghprbSourceBranch}.txt'
 
 
+
+
         script{
             Set projectsChanged = []
             def changedFileToProjectNamesFn = { changedFile ->
                   def tokens = changedFile?.split('/')
                   String projectName =  tokens?tokens[0]:''
                   return [projectName]
-            }
-
-            @NonCPS
-            def getJobInfo(String jobName) {
-                def joblist = Jenkins.instance.getItemByFullName(jobName).builds.findAll { it.result.toString() == 'SUCCESS' }
-                return joblist
             }
 
             def joblist = getJobInfo("PRBuilderPipelineProject")
@@ -79,4 +75,10 @@ pipeline {
       }
     }
   }
+}
+
+@NonCPS
+def getJobInfo(String jobName) {
+    def joblist = Jenkins.instance.getItemByFullName(jobName).builds.findAll { it.result.toString() == 'SUCCESS' }
+    return joblist
 }
