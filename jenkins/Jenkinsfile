@@ -26,7 +26,7 @@ pipeline {
             }
 
 
-            println("lastBuild : " + getJobInfo("PRBuilderPipelineProject"))
+            println("lastBuild : " + getJobInfo("SchemaPRBuilder"))
 
             def changeSets = sh(
                   script: "git --no-pager diff origin/main --name-only",
