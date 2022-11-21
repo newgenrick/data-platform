@@ -22,10 +22,16 @@ pipeline {
                   String projectName =  tokens?tokens[0]:''
                   return [projectName]
             }
-            @NonCPS
-            def buildNumber = Jenkins.instance.getItemByFullName("PRBuilderPipelineProject").builds.findAll { it.result.toString() == 'SUCCESS' }
 
-            println("lastBuild : ${buildNumber}")
+            @NonCPS
+            def getJobInfo(String jobName) {
+                def joblist = Jenkins.instance.getItemByFullName(jobName).builds.findAll { it.result.toString() == 'SUCCESS' }
+                return joblist
+            }
+
+            def joblist = getJobInfo("PRBuilderPipelineProject")
+
+            println("lastBuild : ${joblist}")
 
             def changeSets = sh(
                   script: "git --no-pager diff origin/main --name-only",
