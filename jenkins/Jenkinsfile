@@ -25,7 +25,7 @@ pipeline {
             }
             def buildNumber = Jenkins.instance.getItem('PRBuilderPipelineProject').lastBuild
 
-            println(buildNumber)
+            println("lastBuild : "+buildNumber)
             def changeSets = sh(
                   script: "git --no-pager diff origin/main --name-only",
                      returnStdout: true
