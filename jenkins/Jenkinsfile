@@ -22,6 +22,7 @@ pipeline {
                   String projectName =  tokens?tokens[0]:''
                   return [projectName]
             }
+            @NonCPS
             def buildNumber = Jenkins.instance.getItemByFullName("PRBuilderPipelineProject").builds.findAll { it.result.toString() == 'SUCCESS' }
 
             println("lastBuild : ${buildNumber}")
