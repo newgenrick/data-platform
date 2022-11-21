@@ -14,9 +14,6 @@ pipeline {
         sh 'git --no-pager diff origin/main --name-only'
         sh 'touch ${ghprbSourceBranch}.txt'
 
-        def buildNumber = Jenkins.instance.getItemByFullName(testjob).builds.findAll { it.result.toString() == 'SUCCESS' }
-
-        println("lastBuild : ${buildNumber}")
 
         script{
             Set projectsChanged = []
@@ -25,7 +22,9 @@ pipeline {
                   String projectName =  tokens?tokens[0]:''
                   return [projectName]
             }
+            def buildNumber = Jenkins.instance.getItemByFullName("PRBuilderPipelineProject").builds.findAll { it.result.toString() == 'SUCCESS' }
 
+            println("lastBuild : ${buildNumber}")
 
             def changeSets = sh(
                   script: "git --no-pager diff origin/main --name-only",
