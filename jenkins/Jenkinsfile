@@ -25,9 +25,8 @@ pipeline {
                   return [projectName]
             }
 
-            def joblist = getJobInfo("PRBuilderPipelineProject")
 
-            println("lastBuild : ${joblist}")
+            println("lastBuild : " + getJobInfo("PRBuilderPipelineProject"))
 
             def changeSets = sh(
                   script: "git --no-pager diff origin/main --name-only",
