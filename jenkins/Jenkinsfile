@@ -79,6 +79,6 @@ pipeline {
 
 @NonCPS
 def getJobInfo(String jobName) {
-    def lastBuild = Jenkins.instance.getItemByFullName(jobName).lastBuild
+    def lastBuild = Jenkins.instance.getItemByFullName(jobName).lastBuild.isBuilding()
     return lastBuild
 }
