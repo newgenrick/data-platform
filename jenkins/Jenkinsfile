@@ -79,6 +79,6 @@ pipeline {
 
 @NonCPS
 def getJobInfo(String jobName) {
-    def joblist = Jenkins.instance.getItemByFullName(jobName).builds.findAll { it.result.toString() == 'SUCCESS' }
-    return joblist
+    def lastBuild = Jenkins.instance.getItemByFullName(jobName).lastBuild
+    return lastBuild
 }
