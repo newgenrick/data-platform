@@ -14,6 +14,8 @@ pipeline {
         sh 'git --no-pager diff origin/main --name-only'
         sh 'touch ${ghprbSourceBranch}.txt'
 
+        sh 'sleep 30'
+
         script{
             Set projectsChanged = []
             def changedFileToProjectNamesFn = { changedFile ->
@@ -60,7 +62,7 @@ pipeline {
 
              println("invoking downstream build job : ")
              stage (jobName) {
-                 build job: jobName, parameters: []
+                 build job: jobName, parameters: [], wait: false
              }
         }
 
