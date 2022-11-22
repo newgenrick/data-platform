@@ -6,11 +6,15 @@ pipeline {
     stage("Schema Build check") {
 
         steps{
-            script{
-                println("Schema build in progress : " + getJobInfo("SchemaPRBuilder"))
+            waitUntil{
+                script{
+                    println("Schema build in progress : " + getJobInfo("SchemaPRBuilder"))
+                    return getJobInfo("SchemaPRBuilder")
+                }
             }
         }
     }
+
     stage('Clean Workspace') {
       steps {
         println "calling projectsListForPR"
