@@ -65,7 +65,7 @@ pipeline {
              }else if(GroupBServices.contains(changedService)){
                 println("GroupBServices")
                 jobName = "GroupBBuilder"
-             }else if(SchemaPR.contains(changedService){
+             }else if(SchemaPR.contains(changedService)){
                 println("SchemaPRBuilder")
                 jobName = "SchemaPRBuilder"
              }else{
