@@ -4,8 +4,11 @@ pipeline {
   stages {
 
     stage("Schema Build check") {
-        script{
-            println("Schema build in progress : " + getJobInfo("SchemaPRBuilder"))
+
+        steps{
+            script{
+                println("Schema build in progress : " + getJobInfo("SchemaPRBuilder"))
+            }
         }
     }
     stage('Clean Workspace') {
