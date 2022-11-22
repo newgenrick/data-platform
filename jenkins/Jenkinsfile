@@ -6,7 +6,7 @@ pipeline {
     stage("Schema Build check") {
 
         steps{
-            waitUntil(5000){
+            waitUntil(initialRecurrencePeriod: 5000){
                 script{
                     println("Schema build in progress : " + isSchemaBuildInProgress("SchemaPRBuilder"))
                     return !isSchemaBuildInProgress("SchemaPRBuilder")
