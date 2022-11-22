@@ -6,10 +6,10 @@ pipeline {
     stage("Schema Build check") {
 
         steps{
-            waitUntil{
+            waitUntil(5000){
                 script{
-                    println("Schema build in progress : " + getJobInfo("SchemaPRBuilder"))
-                    return getJobInfo("SchemaPRBuilder")
+                    println("Schema build in progress : " + isSchemaBuildInProgress("SchemaPRBuilder"))
+                    return !isSchemaBuildInProgress("SchemaPRBuilder")
                 }
             }
         }
@@ -94,7 +94,7 @@ pipeline {
 }
 
 @NonCPS
-def getJobInfo(String jobName) {
+def isSchemaBuildInProgress(String jobName) {
     def lastBuild = Jenkins.instance.getItemByFullName(jobName).lastBuild.isBuilding()
     return lastBuild
 }
