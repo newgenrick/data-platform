@@ -3,6 +3,11 @@ pipeline {
 
   stages {
 
+    stage("Schema Build check") {
+        script{
+            println("Schema build in progress : " + getJobInfo("SchemaPRBuilder"))
+        }
+    }
     stage('Clean Workspace') {
       steps {
         println "calling projectsListForPR"
@@ -26,7 +31,7 @@ pipeline {
             }
 
 
-            println("lastBuild : " + getJobInfo("SchemaPRBuilder"))
+
 
             def changeSets = sh(
                   script: "git --no-pager diff origin/main --name-only",
@@ -43,6 +48,7 @@ pipeline {
 
              Set GroupAServices = ["contact-summary-processor","agent-summary-processor"]
              Set GroupBServices = ["ingestion-services","dal-search"]
+             Set SchemaPR = ["dataset-registration"]
 
              if(projectsChanged.size()!=1){
                 error("MORE THAN SERVICES ARE CHANGED IN THIS PR!! ABORTING")
@@ -59,6 +65,9 @@ pipeline {
              }else if(GroupBServices.contains(changedService)){
                 println("GroupBServices")
                 jobName = "GroupBBuilder"
+             }else if(SchemaPR.contains(changedService){
+                println("SchemaPRBuilder")
+                jobName = "SchemaPRBuilder"
              }else{
                 error("ABORTING : UNKNOWN SERVICE BUCKET")
              }
