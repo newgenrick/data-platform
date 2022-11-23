@@ -100,6 +100,7 @@ def isSchemaBuildInProgress(String jobName) {
     return lastBuild
 }
 
+
 def updatePrStatus() {
     def payload = """ {"state":"success","target_url":"https://example.com/build/status","description":"Build routed successfully!","context":"data-platform-build-router/jenkins"}"""
     def response = httpRequest consoleLogResponseBody: true,
