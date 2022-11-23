@@ -109,6 +109,7 @@ def updatePrStatus() {
             httpMode: 'POST', requestBody: payload,
             url: "https://api.github.com/repos/newgenrick/data-platform/statuses/${ghprbActualCommit}"
 
+
     println("Build status update status: " + response.status + ", response: " + response.content)
 
 }
