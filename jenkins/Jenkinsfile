@@ -7,11 +7,6 @@ pipeline {
 
   stages {
 
-gitStatusWrapper(account: 'newgenrick', credentialsId: '98f4342f-d789-4738-8781-8fb0e630b3cf',
-                            description: 'Validating', gitApiUrl: 'https://api.github.com',
-                                gitHubContext: 'data-platform-router', repo: 'data-platform', sha: ghprbActualCommit,
-                                    successDescription: 'No more schema builds in progress',failureDescription: 'Schema build wait step terminated') {
-
     stage("Schema Build check") {
 
         steps{
@@ -32,6 +27,11 @@ gitStatusWrapper(account: 'newgenrick', credentialsId: '98f4342f-d789-4738-8781-
 
     stage('Clean Workspace') {
       steps {
+      gitStatusWrapper(account: 'newgenrick', credentialsId: '98f4342f-d789-4738-8781-8fb0e630b3cf',
+                        		description: 'Validating', gitApiUrl: 'https://api.github.com',
+                        			gitHubContext: 'data-platform-pr-build-router', repo: 'data-platform', sha: ghprbActualCommit,
+                        				successDescription: 'Routed PR build to its group builder successfully',failureDescription: 'Error routing PR to its service group') {
+
         println "calling projectsListForPR"
         sh 'printenv'
 
@@ -51,9 +51,6 @@ gitStatusWrapper(account: 'newgenrick', credentialsId: '98f4342f-d789-4738-8781-
                   String projectName =  tokens?tokens[0]:''
                   return [projectName]
             }
-
-
-
 
             def changeSets = sh(
                   script: "git --no-pager diff origin/main --name-only",
@@ -98,11 +95,12 @@ gitStatusWrapper(account: 'newgenrick', credentialsId: '98f4342f-d789-4738-8781-
              stage (jobName) {
                  build job: jobName, parameters: [], wait: false
              }
-             updatePrStatus()
+
+             }
+             //updatePrStatus()
         }
       }
     }
-  }
   }
 }
 
@@ -113,14 +111,14 @@ def isSchemaBuildInProgress(String jobName) {
 }
 
 
-def updatePrStatus() {
-    def payload = """ {"state":"success","target_url":"https://example.com/build/status","description":"Build routed successfully!","context":"data-platform-build-router/jenkins"}"""
-    def response = httpRequest consoleLogResponseBody: true,
-            customHeaders: [[name: 'Authorization', value: "token ${GITHUB_PAT}"]],
-            httpMode: 'POST', requestBody: payload,
-            url: "https://api.github.com/repos/newgenrick/data-platform/statuses/${ghprbActualCommit}"
-
-
-    println("Build status update status: " + response.status + ", response: " + response.content)
-
-}
+// def updatePrStatus() {
+//     def payload = """ {"state":"success","target_url":"https://example.com/build/status","description":"Build routed successfully!","context":"data-platform-build-router/jenkins"}"""
+//     def response = httpRequest consoleLogResponseBody: true,
+//             customHeaders: [[name: 'Authorization', value: "token ${GITHUB_PAT}"]],
+//             httpMode: 'POST', requestBody: payload,
+//             url: "https://api.github.com/repos/newgenrick/data-platform/statuses/${ghprbActualCommit}"
+//
+//
+//     println("Build status update status: " + response.status + ", response: " + response.content)
+//
+// }

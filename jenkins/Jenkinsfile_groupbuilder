@@ -1,0 +1,24 @@
+pipeline {
+    agent any
+
+
+    stages {
+
+        stage("PR build") {
+
+            steps{
+                gitStatusWrapper(account: 'newgenrick', credentialsId: '98f4342f-d789-4738-8781-8fb0e630b3cf',
+                        description: 'Validating', gitApiUrl: 'https://api.github.com',
+                        gitHubContext: 'data-platform-pr-build', repo: 'data-platform', sha: ghprbActualCommit,
+                        successDescription: 'PR Build success',failureDescription: 'PR build failed') {
+
+                    sh 'printenv'
+                    sh 'sleep 120'
+                    println("build finished")
+                }
+            }
+        }
+
+
+    }
+}
