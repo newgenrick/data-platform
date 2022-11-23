@@ -105,7 +105,7 @@ def isSchemaBuildInProgress(String jobName) {
 def updatePrStatus() {
     def payload = """ {"state":"success","target_url":"https://example.com/build/status","description":"Build routed successfully!","context":"data-platform-build-router/jenkins"}"""
     def response = httpRequest consoleLogResponseBody: true,
-            customHeaders: [[name: 'Authorization', value: "token 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"]],
+            customHeaders: [[name: 'Authorization', value: "token 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"]],
             httpMode: 'POST', requestBody: payload,
             url: "https://api.github.com/repos/newgenrick/data-platform/statuses/${ghprbActualCommit}"
 
