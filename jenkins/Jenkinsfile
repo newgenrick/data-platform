@@ -93,7 +93,7 @@ pipeline {
 
              println("invoking downstream build job : ")
              stage (jobName) {
-                 build job: jobName, parameters: [], wait: false
+                 build job: jobName, parameters: [string(name: 'ghprbActualCommit', value: ghprbActualCommit)], wait: false
              }
 
              }
