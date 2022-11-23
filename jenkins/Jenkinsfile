@@ -1,15 +1,24 @@
 pipeline {
   agent any
 
+
+
+
   stages {
 
     stage("Schema Build check") {
 
         steps{
-            waitUntil(initialRecurrencePeriod: 5000){
-                script{
-                    println("Schema build in progress : " + isSchemaBuildInProgress("SchemaPRBuilder"))
-                    return !isSchemaBuildInProgress("SchemaPRBuilder")
+          gitStatusWrapper(account: 'newgenrick', credentialsId: GITHUB_PAT,
+                  		description: 'Validating', gitApiUrl: 'https://api.github.com',
+                  			gitHubContext: 'data-platform-schema-build-wait', repo: 'data-platform', sha: ghprbActualCommit,
+                  				successDescription: 'No more schema builds in progress',failureDescription: 'Schema build wait step terminated') {
+
+                waitUntil(initialRecurrencePeriod: 5000){
+                    script{
+                        println("Schema build in progress : " + isSchemaBuildInProgress("SchemaPRBuilder"))
+                        return !isSchemaBuildInProgress("SchemaPRBuilder")
+                    }
                 }
             }
         }
@@ -85,10 +94,6 @@ pipeline {
              }
              updatePrStatus()
         }
-
-
-
-
       }
     }
   }
