@@ -9,7 +9,7 @@ pipeline {
     stage("Schema Build check") {
 
         steps{
-          gitStatusWrapper(account: 'newgenrick', credentialsId: GITHUB_PAT,
+          gitStatusWrapper(account: 'newgenrick', credentialsId: '98f4342f-d789-4738-8781-8fb0e630b3cf',
                   		description: 'Validating', gitApiUrl: 'https://api.github.com',
                   			gitHubContext: 'data-platform-schema-build-wait', repo: 'data-platform', sha: ghprbActualCommit,
                   				successDescription: 'No more schema builds in progress',failureDescription: 'Schema build wait step terminated') {
